@@ -1,30 +1,30 @@
 <template>
   <div class="detail">
-    <div class="title">{{data.title}}</div>
+    <div class="title">{{details.title}}</div>
     <div class="create">
-      <span class="time">{{formatDate(data.createOn)}}</span><span class="user">{{data.user}}</span>
+      <span class="time">{{details.createTime}}</span><span class="user">{{details.user}}</span>
     </div>
-    <div class="content">{{data.content}}</div>
+    <div class="content" v-html="details.content"></div>
   </div>
 </template>
 
 <script>
-import moment from 'moment'
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
-      data: {
-        title: '[总结与展望]苏商2018年工作报告暨表彰大会',
-        createOn: 1519483445804,
-        user: '苏商微服务',
-        content: '苏商2018年工作报告暨表彰大会,苏商2018年工作报告暨表彰大会苏商2018年工作报告暨表彰大会,苏商2018年工作报告暨表彰大会苏商2018年工作报告暨表彰大会,苏商2018年工作报告暨表彰大会苏商2018年工作报告暨表彰大会,苏商2018年工作报告暨表彰大会苏商2018年工作报告暨表彰大会,苏商2018年工作报告暨表彰大会苏商2018年工作报告暨表彰大会,苏商2018年工作报告暨表彰大会苏商2018年工作报告暨表彰大会,苏商2018年工作报告暨表彰大会'
-      }
     }
   },
-  methods: {
-    formatDate (date) {
-      return moment(date).format('YYYY-MM-DD')
-    }
+  computed: {
+    ...mapState({
+      details: state => state.news.newsDetails
+    })
+  },
+  async mounted () {
+    await this.$store.dispatch('news/fetchNewsDetails', {
+      id: this.$route.query.id
+    })
+    console.log(this.details)
   }
 }
 </script>
@@ -59,4 +59,13 @@ export default {
   }
 }
 </style>
-
+<style lang="less">
+.detail {
+  .content {
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+</style>

@@ -6,14 +6,6 @@ const DynamicDetail = () => import('./DynamicDetail')
 const Feedback = () => import('./Feedback')
 const Aptitudes = () => import('./Aptitudes')
 const Platform = () => import('./Platform')
-// const Access = () => import('./Access')
-// const Dynamic = () => import('./Dynamic')
-// const NewDynamic = () => import('./NewDynamic')
-// import Dynamic from './Dynamic'
-// import DynamicDetail from './DynamicDetail'
-// import Feedback from './Feedback'
-// import Aptitudes from './Aptitudes'
-// import Platform from './Platform'
 
 Vue.use(VueRouter)
 

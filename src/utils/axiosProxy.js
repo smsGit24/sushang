@@ -1,9 +1,10 @@
 import axios from 'axios'
 import store from '../store'
-// import Cookie from 'js-cookie'
+import qs from 'qs'
 
 // const baseURL = 'http://mapi.1mifd.com'
-const baseURL = 'http://47.97.113.61:8086'
+// const baseURL = 'https://bird.ioliu.cn/v2?url=http://47.97.113.61:8086'
+const baseURL = 'http://47.97.113.61:8087'
 
 const createAxios = function (opts) {
   opts = {
@@ -38,18 +39,11 @@ const createAxios = function (opts) {
   }
   const instance = axios.create({
     baseURL: baseURL,
-    timeout: opts.timeout || 60000,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/x- www-form-urlencoded'
-    }
+    timeout: opts.timeout || 60000
   })
   instance.interceptors.request.use(
     req => {
-      // const token = Cookie.get('token')
-      // if (token) {
-      //   req.headers['X-AUTH-TOKEN'] = token
-      // }
+      req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
       return req
     },
     err => {
@@ -81,7 +75,7 @@ export const get = async (store, url, arg, options = {}) => {
 }
 
 export const post = async (store, url, arg, options = {}) => {
-  const res = await callService.post(url, {...arg})
+  const res = await callService.post(url, qs.stringify(arg))
   return res.data
 }
 

@@ -2,10 +2,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {createStore, preModule} from '../utils/preModule'
 import {get, post, put, del} from '../utils/axiosProxy'
+import news from './modules/news'
 
 const opt = {
   state: {
-    isLoading: false
+    isLoading: false,
+    breadcrumb: []
   },
   mutations: {
     setLoading (state, val) {
@@ -13,6 +15,9 @@ const opt = {
     }
   },
   actions: {
+    setBreadcrumb (ctx, params) {
+      ctx.commit('setBreadcrumb', params)
+    },
     async get (ctx, {url, params}) {
       ctx.commit('setLoading', true)
       const res = await get(ctx, url, params)
@@ -39,6 +44,7 @@ const opt = {
     }
   },
   modules: {
+    news
   }
 }
 

@@ -5,8 +5,8 @@
         <span style="font-size:20px;">Loading</span>
         <XImg 
           :delay="20"
-          src="https://o5omsejde.qnssl.com/demo/test1.jpg"
-          :webp-src="`${'https://o5omsejde.qnssl.com/demo/test1.jpg'}?type=webp`"
+          :src="item.image"
+          :webp-src="`${item.image}?type=webp`"
           @on-success="success"
           @on-error="error"
           class="ximg-demo"
@@ -16,8 +16,8 @@
         </XImg>
       </div>
       <div class="text">
-        <p class="time">{{formatDate(item.createOn)}}</p>
-        <p class="des">{{item.des}}</p>
+        <p class="time">{{formatDate(item.createTime)}}</p>
+        <p class="des">{{item.title}}</p>
       </div>
     </div>
   </div>
@@ -33,7 +33,9 @@ export default {
   props: {
     list: {
       type: Array,
-      default: []
+      default () {
+        return []
+      }
     }
   },
   methods: {
@@ -66,7 +68,7 @@ export default {
 // @import "~less-rem/dist/rem";
 .panel-item {
   // .px2rem_3(0, 0, 14px, padding);
-  padding: 0 0 14px;
+  padding-bottom: 10px;
   .img {
     width: 100%;
   }
